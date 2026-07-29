@@ -1178,7 +1178,7 @@ if ( ! class_exists( 'Classic_Editor' ) ) :
 
 				?>
 				<style id="classic-editor-safari-18-temp-fix">
-					_::-webkit-full-page-media, _:future, :root #post-body #postbox-container-2 {
+					_:future, :root #post-body #postbox-container-2 {
 						clear: <?php echo esc_attr( $clear ); ?>;
 					}
 				</style>
