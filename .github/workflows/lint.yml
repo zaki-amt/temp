@@ -1,0 +1,32 @@
+name: Lint and Code Quality
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  phpcs:
+    name: WPCS & PHP Compatibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Choose your target development PHP version
+          coverage: none
+          tools: cs2pr
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHP Code Sniffer (WPCS)
+        # cs2pr shows the errors directly inside the GitHub PR "Files Changed" tab
+        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
