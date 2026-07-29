@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="WordPress Plugin Rules" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+
+    <description>Custom coding standards for temp WordPress plugin.</description>
+
+    <!-- Exclude third-party assets and deployment paths -->
+    <exclude-pattern>/node_modules/*</exclude-pattern>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/.github/*</exclude-pattern>
+
+    <!-- Scan all PHP files in the root and subdirectories -->
+    <file>.</file>
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="ps"/>
+
+    <!-- Allow main plugin entry file name format -->
+    <rule ref="WordPress.Files.FileName">
+        <properties>
+            <property name="strict_class_file_names" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- 1. ADVANCED: WordPress Core Rules (Naming, Whitespace, Best Practices) -->
+    <rule ref="WordPress-Core"/>
+
+    <!-- 2. ADVANCED: WordPress Security Rules (XSS protection, Nonce verification, Escaping) -->
+    <rule ref="WordPress-Extra"/>
+    <rule ref="WordPress-Docs"/>
+
+    <!-- Set your custom text domain for translation string checks -->
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="temp"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- 3. COMPATIBILITY: Check code against minimum PHP versions -->
+    <rule ref="PHPCompatibilityWP"/>
+    <!-- Change this to your plugin's minimum required PHP version -->
+    <config name="testVersion" value="7.4-"/>
+
+</ruleset>
